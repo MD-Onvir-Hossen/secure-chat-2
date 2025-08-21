@@ -1,0 +1,54 @@
+/* Make logo images round */
+.main-logo-img,
+.about-logo {
+  border-radius: 50% !important;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+/* Glittering black fancy font for Secure and Chat */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Montserrat:wght@900&display=swap');
+
+.logo-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+  .logo-fancy-text {
+    font-family: 'Montserrat', 'Orbitron', Arial, sans-serif;
+    font-size: 4.4rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+  background: linear-gradient(90deg, #ffd700 0%, #43cea2 100%);
+  background-size: 100% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #ffd700;
+    position: relative;
+    z-index: 1;
+  text-shadow: 0 0 8px #ffd70088, 0 1px 2px #43cea288;
+    overflow: visible;
+    filter: drop-shadow(0 0 8px #ffd70088) drop-shadow(0 0 12px #43cea288);
+
+
+/* Ensure no pseudo-elements add lines to the logo */
+.logo-fancy-text::before,
+.logo-fancy-text::after {
+  display: none !important;
+  content: none !important;
+}
+
+
+
+  @keyframes sparkle-move {
+    0% { left: 10%; top: 60%; opacity: 0.7; }
+    20% { left: 30%; top: 40%; opacity: 1; }
+    40% { left: 60%; top: 30%; opacity: 0.8; }
+    60% { left: 80%; top: 60%; opacity: 1; }
+    80% { left: 50%; top: 80%; opacity: 0.7; }
+    100% { left: 10%; top: 60%; opacity: 0.7; }
+  }
+
+
+

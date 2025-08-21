@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Chat App</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="soft-particles.js" defer></script>
+  <script src="firefly.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6119k6T-Yv4K7c-hM0sH_x-j8_N7lX7lM7w&s" type="image/x-icon">
+</head>
+<body>
+  <nav class="main-navbar">
+    <ul>
+      <li><a href="#" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+
+    </ul>
+  </nav>
+  <div class="wrapper">
+    <div class="main-logo-title">
+      <link rel="stylesheet" href="logo-fancy.css" />
+    <div class="logo-title-row" style="flex-direction:column;align-items:center;gap:8px;">
+  <img src="../Assets/Logo.png" alt="Secure Chat Logo" class="main-logo-img" style="width:110px;height:auto;margin-bottom:12px;box-shadow:0 4px 24px #23252622;" />
+        <div style="display:flex;gap:18px;align-items:center;">
+          <span class="logo-fancy-text dynamic-logo">Secure</span>
+          <span class="logo-fancy-text dynamic-logo">Chat</span>
+        </div>
+      </div>
+    </div>
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal" style="display:none;">
+      <div class="modal-content about-fancy-card">
+        <span class="close-modal" id="closeAboutModal" title="Close">&times;</span>
+        <div class="about-icon-glow">
+          <img src="../Assets/Logo.png" alt="Secure Chat Logo" class="about-logo" />
+        </div>
+        <div class="about-content">
+          <h2 class="about-title"><span class="about-highlight">Secure Chat</span> <span style="font-weight:400;color:#fff;white-space:nowrap;">– Privacy, Simple Experience</span></h2>
+          <p class="about-desc" style="margin-bottom: 10px;">
+            Your conversations and files deserve <b>absolute protection</b>.<br>
+            <span style="color:#43cea2;font-weight:600;">Secure Chat</span> gives you the power of encryption with the simplicity you need.
+          </p>
+          <ul class="about-feature-list" style="list-style:none;padding:0;margin:0 0 10px 0;">
+            <li><span class="about-bullet">✨</span> <b>Military-grade encryption</b> — lock your data beyond reach</li>
+            <li><span class="about-bullet">✨</span> <b>Modern & intuitive design</b> — privacy made effortless</li>
+            <li><span class="about-bullet">✨</span> <b>Fast, secure & reliable</b> — built for everyday use</li>
+            <li><span class="about-bullet">✨</span> <b>Open-source & trusted</b> — transparency you can count on</li>
+          </ul>
+          <div class="about-privacy-cta" style="font-size:1.18em;font-weight:700;color:#ffd700;text-shadow:0 2px 8px #23252699;letter-spacing:0.03em;">
+            <span style="font-size:1.3em;">🔒</span> Your Privacy. Your Control.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End About Modal -->
+    <section id="about" style="display:none;"></section>
+    <section id="contact" style="display:none;">
+      <h2>Contact</h2>
+      <p>For support or feedback, contact: <a href="mailto:your@email.com">your@email.com</a></p>
+    </section>
+
+    <div class="chat-box">
+      <div class="sections-wrapper">
+        <div class="encrypt-section">
+          <h3>Encrypt Message</h3>
+          <div class="input-group">
+            <textarea id="inputMessage" placeholder="Type your message..." aria-label="Message to encrypt"></textarea>
+            <div class="input-buttons">
+              <button id="pasteInputMessage" class="action-btn">Paste</button>
+              <button id="clearInputMessage" class="action-btn clear-btn">Clear</button>
+            </div>
+          </div>
+          <div class="file-group">
+            <div id="encryptDropZone" class="drop-zone">Drag & Drop File Here</div>
+            <input type="file" id="fileInput" class="file-input" />
+            <label for="fileInput" class="file-label">Browse</label><span id="fileStatus" class="file-status">No file chosen</span>
+          </div>
+          <div class="input-eye-container">
+            <input id="secretKey" type="password" placeholder="Enter Secret Key" autocomplete="off" aria-label="Secret key for encryption">
+            <img id="toggleSecretKeyVisibility" src="../Assets/eye-closed.svg" alt="Show/Hide" class="eye-icon" tabindex="0">
+          </div>
+          <button id="encryptButton" aria-busy="false">Encrypt</button>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div id="encryptStatus" class="status-message"></div>
+            <span id="encryptProgress" style="font-weight:600;color:#ffd700;"></span>
+          </div>
+
+          <h3>Encrypted Message :</h3>
+          <div class="output-group">
+            <textarea id="encryptedOutput" class="output-box" readonly aria-label="Encrypted message output"></textarea>
+            <div class="button-row">
+              <button id="copyEncryptedOutput" class="action-btn">Copy</button>
+              <button id="downloadEncryptedFile" class="action-btn" disabled>Download Encrypted File</button>
+              <span id="downloadEncryptedProgress" style="font-weight:600;color:#ffd700;margin-left:6px;"></span>
+            </div>
+          </div>
+          <button id="encryptHistoryBtn" class="history-btn">History</button>
+          <div id="encryptHistory" class="history-list hidden">
+            <button class="close-history" aria-label="Close encryption history">&times;</button>
+            <h4>Encrypted Messages History</h4>
+            <table style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr style="border-bottom:1px solid #ccc;font-weight:bold;">
+                  <th style="width:8%;text-align:left;padding:4px 6px;">No.</th>
+                  <th style="width:38%;text-align:left;padding:4px 6px;">Message</th>
+                  <th style="width:32%;text-align:left;padding:4px 6px;">Date &amp; Time</th>
+                  <th style="width:20%;text-align:left;padding:4px 6px;">Type</th>
+                </tr>
+              </thead>
+              <tbody id="encryptHistoryList"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="decrypt-section">
+          <h3>Decrypt Message</h3>
+          <div class="input-group">
+            <textarea id="inputEncrypted" placeholder="Paste encrypted message here..." aria-label="Encrypted message to decrypt"></textarea>
+            <div class="input-buttons">
+              <button id="pasteInputEncrypted" class="action-btn">Paste</button>
+              <button id="clearInputEncrypted" class="action-btn clear-btn">Clear</button>
+            </div>
+          </div>
+          <div class="file-group">
+            <div id="decryptDropZone" class="drop-zone">Drag & Drop .enc File Here</div>
+            <input type="file" id="encInput" accept=".enc" class="file-input" />
+            <label for="encInput" class="file-label">Browse</label><span id="encFileName" class="file-status">No file chosen</span>
+          </div>
+          <div class="input-eye-container">
+            <input id="decryptKey" type="password" placeholder="Enter Secret Key" autocomplete="off" aria-label="Secret key for decryption">
+            <img id="toggleDecryptKeyVisibility" src="../Assets/eye-closed.svg" alt="Show/Hide" class="eye-icon" tabindex="0">
+          </div>
+          <button id="decryptButton" aria-busy="false">Decrypt</button>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div id="decryptStatus" class="status-message"></div>
+            <span id="decryptProgress" style="font-weight:600;color:#ffd700;"></span>
+          </div>
+
+          <h3>Decrypted Message:</h3>
+          <div class="output-group">
+            <textarea id="decryptedOutput" class="output-box" readonly aria-label="Decrypted message output"></textarea>
+            <div class="button-row">
+              <button id="copyDecryptedOutput" class="action-btn">Copy</button>
+              <button id="downloadDecryptedFile" class="action-btn" disabled>Download Decrypted File</button>
+              <span id="downloadDecryptedProgress" style="font-weight:600;color:#ffd700;margin-left:6px;"></span>
+            </div>
+          </div>
+          <button id="decryptHistoryBtn" class="history-btn">History</button>
+          <div id="decryptHistory" class="history-list hidden">
+            <button class="close-history" aria-label="Close decryption history">&times;</button>
+            <h4>Decrypted Messages History</h4>
+            <table style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr style="border-bottom:1px solid #ccc;font-weight:bold;">
+                  <th style="width:8%;text-align:left;padding:4px 6px;">No.</th>
+                  <th style="width:38%;text-align:left;padding:4px 6px;">Message</th>
+                  <th style="width:32%;text-align:left;padding:4px 6px;">Date &amp; Time</th>
+                  <th style="width:20%;text-align:left;padding:4px 6px;">Type</th>
+                </tr>
+              </thead>
+              <tbody id="decryptHistoryList"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="errorMessage" class="error-message" role="alert" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-contact" style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+  <img src="../Assets/b.jpg" alt="Developer Picture" class="developer-pic" style="margin:2px 0 8px 0;max-height:70px;width:70px;border-radius:50%;box-shadow:0 4px 18px #43cea288,0 0 0 4px #fff,0 0 0 8px #23252633;object-fit:cover;transition:box-shadow 0.3s;" />
+      <div class="developer-contact" style="margin-bottom:2px;">
+  <p class="footer-fancy-devname" style="margin:0;font-size:13px;">
+          <span>MD Onvir Hossen</span> <span style="font-size:0.93em;font-weight:600;opacity:0.85;">(Developer)</span>
+        </p>
+      </div>
+  <p style="font-weight:600;font-size:0.98em;letter-spacing:0.01em;margin:0;">Phone: +88 01998-741515</p>
+  <p style="margin:0;font-size:12px;">Email: mdonvirhossenbadhon@gmail.com</p>
+  <p class="version-info" style="margin:2px 0 0 0;font-size:12px;color:#aaa;">
+        <span style="font-family: Arial, sans-serif; font-size: 15px; color: #fff; font-weight: normal;">
+          Secure Chat&nbsp; v1.0.0&nbsp; &copy; 2025
+        </span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
